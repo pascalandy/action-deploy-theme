@@ -19,12 +19,13 @@ const GhostAdminApi = require('@tryghost/admin-api');
         const zipPath = path.join(basePath, themeZip);
         const exclude = core.getInput('exclude') || '';
 
+        // bypassed as our CI provided the file dist.zip
         // Create a zip
-        await exec.exec(`zip -r ${themeZip} . -x *.git* *.zip yarn* npm* *routes.yaml *redirects.yaml *redirects.json ${exclude}`, [], {cwd: basePath});
+        // await exec.exec(`zip -r ${themeZip} . -x *.git* *.zip yarn* npm* *routes.yaml *redirects.yaml *redirects.json ${exclude}`, [], {cwd: basePath});
 
         // Deploy it to the configured site
-        await api.themes.upload({file: zipPath});
-        console.log(`${themeZip} successfully uploaded.`);
+        await api.themes.upload({file: /home/runner/work/containous.website/containous.website/dist.zip});
+        console.log(`dist.zip successfully uploaded.`);
     } catch (err) {
         console.error(err);
         process.exit(1);
